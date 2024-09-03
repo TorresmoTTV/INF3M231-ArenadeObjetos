@@ -6,18 +6,17 @@ public class Pessoa {
     private String olho;
     private String pele;
     private boolean sexo;
-    private int pontosDeVida;
+    private int pontosDeVida = 100;
 
     public Pessoa() {
     }
 
-    public Pessoa(String nome, String cabelo, String olho, String pele, boolean sexo, int pontosDeVida) {
+    public Pessoa(String nome, String cabelo, String olho, String pele, boolean sexo) {
         this.nome = nome;
         this.cabelo = cabelo;
         this.olho = olho;
         this.pele = pele;
         this.sexo = sexo;
-        this.pontosDeVida = pontosDeVida;
     }
 
     public String getNome() {
@@ -74,4 +73,15 @@ public class Pessoa {
                 + ", pontosDeVida=" + pontosDeVida + "]";
     }
 
+    public void dano(int dano) {
+        this.pontosDeVida = this.pontosDeVida - dano;
+    }
+
+    public boolean gameOver() {
+        if (this.pontosDeVida <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
