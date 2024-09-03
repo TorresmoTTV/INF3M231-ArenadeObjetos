@@ -11,4 +11,19 @@ public class Guerreiro extends Pessoa {
         this.armamento = armamento;
     }
 
+    public String getArmamento() {
+        return armamento;
+    }
+
+    public void setArmamento(String armamento) {
+        this.armamento = armamento;
+    }
+
+    @Override
+    public String toString() {
+        return "Guerreiro [armamento=" + armamento + ", getArmamento()=" + getArmamento() + ", getNome()=" + getNome()
+                + ", getCabelo()=" + getCabelo() + ", getOlho()=" + getOlho() + ", getPele()=" + getPele()
+                + ", isSexo()=" + isSexo() + ", getPontosDeVida()=" + getPontosDeVida() + "]";
+    }
+
 }
