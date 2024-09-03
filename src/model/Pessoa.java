@@ -44,6 +44,11 @@ public class Pessoa {
     public void setPontosDeVida(int pontosDeVida) {
         this.pontosDeVida = pontosDeVida;
     }
+    @Override
+    public String toString() {
+        return "Pessoa [nome=" + nome + ", cabelo=" + cabelo + ", olho=" + olho + ", pele=" + pele + ", sexo=" + sexo
+                + ", pontosDeVida=" + pontosDeVida + "]";
+    }
     
     
 }
