@@ -1,25 +1,54 @@
 package arenadeobjetos;
 
-import model.Guerreiro;
-import model.Pessoa;
+import java.util.Scanner;
 
 public class ArenaDeObjetos {
-    public static void main(String[] args) {
+    static Scanner ler = new Scanner(System.in);
 
-        Pessoa vitima = new Pessoa("Vitima 1", "Castanho", "Castanho Claro", "Branca", true);
-        System.out.println("Vitima:\n" + vitima.toString());
-
-        System.out.println("Perdeu 25 pontos de vida");
-        int pvAtual = vitima.getPontosDeVida();
-        vitima.setPontosDeVida(pvAtual - 25);
-        System.out.println("Vitima:\n" + vitima.toString());
-
-        System.out.println("Perdeu 30 pontos de vida");
-        vitima.dano(30);
-        System.out.println("Vitima:\n" + vitima.toString());
-
-        Guerreiro denis = new Guerreiro("Denis", "Cinza", "Verde", "Branca", false, "Espada Longa");
-        System.out.println("Guerreiro:\n" + denis.toString());
+    public static int lerInt() {
+        Scanner ler = new Scanner(System.in);
+        int num = 99;
+        try {// o que pode dar erro
+            num = ler.nextInt();
+        } catch (Exception e) {// tratar erro
+            System.out.print("Tente novamente: ");
+            lerInt();
+        }
+        ler.close();
+        return num;
     }
 
+    public static void main(String[] args) {
+
+    }
+
+    public static void menuP() {// menu principal
+        String menu = "1 - Criar Personagens"
+                + "\n2 - Listar Personagens"
+                + "\n3 - Batalha"
+                + "\n0 - Sair do Jogo"
+                + "\nDigite a opção que deseja: ";
+
+        System.out.print(menu);
+    }
+
+    public static void subMenuP(int omP) {
+        String subMenu;
+
+        switch (omP) {
+            case 1:
+
+                break;
+
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default:
+                break;
+        }
+        System.out.print(omP);
+    }
 }
