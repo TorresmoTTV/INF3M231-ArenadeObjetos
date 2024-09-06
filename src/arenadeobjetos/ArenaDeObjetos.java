@@ -62,6 +62,12 @@ public class ArenaDeObjetos {
             case 2:
                 System.out.println(".:Lista de Personagens:.");
                 System.out.println(guerreiros.toString());
+                System.out.println("Lista Bonita");
+                for (Guerreiro g : guerreiros) {
+                    System.out.println(g.getNome());
+                    System.out.println("\t" + g.getArmamento());// \t tabulação
+                    System.out.println("\t" + g.getPontosDeVida());// \t tabulação
+                }
                 break;
             case 3:
 
@@ -92,21 +98,61 @@ public class ArenaDeObjetos {
                 System.out.print("Digite o sexo: "
                         + "\n0 - Feminino"
                         + "\n1 - Masculino: ");
-                int sexoInt = lerInt();
-                boolean sexo = false;
-                if (sexoInt == 1) {
-                    sexo = true;// masculino
+                int sexoIntG = lerInt();
+                boolean sexoG = false;
+                if (sexoIntG == 1) {
+                    sexoG = true;// masculino
                 }
-                g.setSexo(sexo);
+                g.setSexo(sexoG);
                 System.out.print("Digite o armamento: ");
                 g.setArmamento(ler.nextLine());
                 guerreiros.add(g);
                 break;
             case 2:
                 System.out.println(".:Criar Ladrão:.");
+                Ladrao ladrao = new Ladrao();
+                System.out.print("Digite o nome do Ladrão: ");
+                ladrao.setNome(ler.nextLine());
+                System.out.print("Digite a cor do olho: ");
+                ladrao.setOlho(ler.nextLine());
+                System.out.print("Digite a cor do cabelo: ");
+                ladrao.setCabelo(ler.nextLine());
+                System.out.print("Digite a cor da pele: ");
+                ladrao.setPele(ler.nextLine());
+                System.out.print("Digite o sexo: "
+                        + "\n0 - Feminino"
+                        + "\n1 - Masculino: ");
+                int sexoIntL = lerInt();
+                boolean sexoL = false;
+                if (sexoIntL == 1) {
+                    sexoL = true;// masculino
+                }
+                ladrao.setSexo(sexoL);
+                System.out.print("Digite o plano de fuga: ");
+                ladrao.setPlanoDeFuga(ler.nextLine());
+                ladroes.add(ladrao);
                 break;
             case 3:
                 System.out.println(".:Criar Pessoa:.");
+                Pessoa p = new Pessoa();
+                System.out.print("Digite o nome da Pessoa: ");
+                p.setNome(ler.nextLine());
+                System.out.print("Digite a cor do olho: ");
+                p.setOlho(ler.nextLine());
+                System.out.print("Digite a cor do cabelo: ");
+                p.setCabelo(ler.nextLine());
+                System.out.print("Digite a cor da pele: ");
+                p.setPele(ler.nextLine());
+                System.out.print("Digite o sexo: "
+                        + "\n0 - Feminino"
+                        + "\n1 - Masculino: ");
+                int sexoIntP = lerInt();
+                boolean sexoP = false;
+                if (sexoIntP == 1) {
+                    sexoP = true;// masculino
+                }
+                p.setSexo(sexoP);
+                pessoa.add(p);
                 break;
             default:
                 System.out.println("Opção inválida, tente novamente!");
