@@ -14,7 +14,7 @@ public class ArenaDeObjetos {
 
     static ArrayList<Guerreiro> guerreiros = new ArrayList<>();
     static ArrayList<Ladrao> ladroes = new ArrayList<>();
-    static ArrayList<Pessoa> pessoa = new ArrayList<>();
+    static ArrayList<Pessoa> pessoas = new ArrayList<>();
 
     public static int lerInt() {
         Scanner ler = new Scanner(System.in);
@@ -68,6 +68,15 @@ public class ArenaDeObjetos {
                     System.out.println("\t" + g.getArmamento());// \t tabulação
                     System.out.println("\t" + g.getPontosDeVida());// \t tabulação
                 }
+                for (Ladrao l : ladroes) {
+                    System.out.println(l.getNome());
+                    System.out.println("\t" + l.getPlanoDeFuga());// \t tabulação
+                    System.out.println("\t" + l.getPontosDeVida());// \t tabulação
+                }
+                for (Pessoa p : pessoas) {
+                    System.out.println(p.getNome());
+                    System.out.println("\t" + p.getPontosDeVida());// \t tabulação
+                }
                 break;
             case 3:
 
@@ -87,14 +96,19 @@ public class ArenaDeObjetos {
             case 1:
                 System.out.println(".:Criar Guerreiro:.");
                 Guerreiro g = new Guerreiro();
+
                 System.out.print("Digite o nome do Guerreiro: ");
                 g.setNome(ler.nextLine());
+
                 System.out.print("Digite a cor do olho: ");
                 g.setOlho(ler.nextLine());
+
                 System.out.print("Digite a cor do cabelo: ");
                 g.setCabelo(ler.nextLine());
+
                 System.out.print("Digite a cor da pele: ");
                 g.setPele(ler.nextLine());
+
                 System.out.print("Digite o sexo: "
                         + "\n0 - Feminino"
                         + "\n1 - Masculino: ");
@@ -104,21 +118,28 @@ public class ArenaDeObjetos {
                     sexoG = true;// masculino
                 }
                 g.setSexo(sexoG);
+
                 System.out.print("Digite o armamento: ");
                 g.setArmamento(ler.nextLine());
+
                 guerreiros.add(g);
                 break;
             case 2:
                 System.out.println(".:Criar Ladrão:.");
                 Ladrao ladrao = new Ladrao();
+
                 System.out.print("Digite o nome do Ladrão: ");
                 ladrao.setNome(ler.nextLine());
+
                 System.out.print("Digite a cor do olho: ");
                 ladrao.setOlho(ler.nextLine());
+
                 System.out.print("Digite a cor do cabelo: ");
                 ladrao.setCabelo(ler.nextLine());
+
                 System.out.print("Digite a cor da pele: ");
                 ladrao.setPele(ler.nextLine());
+
                 System.out.print("Digite o sexo: "
                         + "\n0 - Feminino"
                         + "\n1 - Masculino: ");
@@ -130,19 +151,25 @@ public class ArenaDeObjetos {
                 ladrao.setSexo(sexoL);
                 System.out.print("Digite o plano de fuga: ");
                 ladrao.setPlanoDeFuga(ler.nextLine());
+
                 ladroes.add(ladrao);
                 break;
             case 3:
                 System.out.println(".:Criar Pessoa:.");
                 Pessoa p = new Pessoa();
+
                 System.out.print("Digite o nome da Pessoa: ");
                 p.setNome(ler.nextLine());
+
                 System.out.print("Digite a cor do olho: ");
                 p.setOlho(ler.nextLine());
+
                 System.out.print("Digite a cor do cabelo: ");
                 p.setCabelo(ler.nextLine());
+
                 System.out.print("Digite a cor da pele: ");
                 p.setPele(ler.nextLine());
+
                 System.out.print("Digite o sexo: "
                         + "\n0 - Feminino"
                         + "\n1 - Masculino: ");
@@ -152,7 +179,8 @@ public class ArenaDeObjetos {
                     sexoP = true;// masculino
                 }
                 p.setSexo(sexoP);
-                pessoa.add(p);
+
+                pessoas.add(p);
                 break;
             default:
                 System.out.println("Opção inválida, tente novamente!");
