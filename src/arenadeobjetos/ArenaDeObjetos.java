@@ -6,6 +6,8 @@ import java.util.Scanner;
 import model.Guerreiro;
 import model.Ladrao;
 import model.Pessoa;
+import servicos.ServicosFactory;
+import servicos.VitimaServicos;
 
 public class ArenaDeObjetos {
     // escopo Global
@@ -155,32 +157,35 @@ public class ArenaDeObjetos {
                 ladroes.add(ladrao);
                 break;
             case 3:
-                System.out.println(".:Criar Pessoa:.");
-                Pessoa p = new Pessoa();
+                System.out.println(".:Criar Vítima:.");
+                Pessoa v = new Pessoa();
 
-                System.out.print("Digite o nome da Pessoa: ");
-                p.setNome(ler.nextLine());
+                System.out.print("Digite o nome da Vítima: ");
+                v.setNome(ler.nextLine());
 
                 System.out.print("Digite a cor do olho: ");
-                p.setOlho(ler.nextLine());
+                v.setOlho(ler.nextLine());
 
                 System.out.print("Digite a cor do cabelo: ");
-                p.setCabelo(ler.nextLine());
+                v.setCabelo(ler.nextLine());
 
                 System.out.print("Digite a cor da pele: ");
-                p.setPele(ler.nextLine());
+                v.setPele(ler.nextLine());
 
                 System.out.print("Digite o sexo: "
                         + "\n0 - Feminino"
                         + "\n1 - Masculino: ");
-                int sexoIntP = lerInt();
-                boolean sexoP = false;
-                if (sexoIntP == 1) {
-                    sexoP = true;// masculino
+                int sexoIntV = lerInt();
+                boolean sexoV = false;
+                if (sexoIntV == 1) {
+                    sexoV = true;// masculino
                 }
-                p.setSexo(sexoP);
-
-                pessoas.add(p);
+                v.setSexo(sexoV);
+                pessoas.add(v);// add Vitima no ArrayList
+                // Instanciar Vitima Serviços
+                VitimaServicos vs = ServicosFactory.getVitimaServicos();
+                // envia para o Banco
+                vs.cadastrarVitima(v);
                 break;
             default:
                 System.out.println("Opção inválida, tente novamente!");
