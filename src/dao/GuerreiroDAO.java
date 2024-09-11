@@ -68,14 +68,14 @@ public class GuerreiroDAO {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Guerreiro guerreiro = new Guerreiro();
-                guerreiro.setId(rs.getInt("id"));
-                guerreiro.setNome(rs.getString("Nome"));
-                guerreiro.setCabelo(rs.getString("Cabelo"));
-                guerreiro.setOlho(rs.getString("Olho"));
-                guerreiro.setPele(rs.getString("Pele"));
-                guerreiro.setSexo(rs.getBoolean("Sexo"));
-                guerreiro.setArmamento(rs.getString("armamento"));
-                guerreiro.setPontosDeVida(rs.getInt("pontosDeVida"));
+                g.setId(rs.getInt("id"));
+                g.setNome(rs.getString("Nome"));
+                g.setCabelo(rs.getString("Cabelo"));
+                g.setOlho(rs.getString("Olho"));
+                g.setPele(rs.getString("Pele"));
+                g.setSexo(rs.getBoolean("Sexo"));
+                g.setArmamento(rs.getString("armamento"));
+                g.setPontosDeVida(rs.getInt("pontosDeVida"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar Guerreiro.\n" + e.getMessage());

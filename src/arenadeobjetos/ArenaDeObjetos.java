@@ -88,7 +88,7 @@ public class ArenaDeObjetos {
                 System.out.println(vs.listaVitimas().toString());
 
                 System.out.println("-- Teste de Busca por nome --");
-                System.out.println(vs.buscaVitimaByNome("Lula").toString());
+                System.out.println(vs.buscaVitimaByNome("%Lula%").toString());
                 break;
             case 3:
 

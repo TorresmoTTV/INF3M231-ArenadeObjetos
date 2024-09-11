@@ -66,14 +66,13 @@ public class VitimaDAO {
             pst.setString(1, nome);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Pessoa vitima = new Pessoa();
-                vitima.setId(rs.getInt("id"));
-                vitima.setNome(rs.getString("Nome"));
-                vitima.setCabelo(rs.getString("Cabelo"));
-                vitima.setOlho(rs.getString("Olho"));
-                vitima.setPele(rs.getString("Pele"));
-                vitima.setSexo(rs.getBoolean("Sexo"));
-                vitima.setPontosDeVida(rs.getInt("pontosDeVida"));
+                v.setId(rs.getInt("id"));
+                v.setNome(rs.getString("Nome"));
+                v.setCabelo(rs.getString("Cabelo"));
+                v.setOlho(rs.getString("Olho"));
+                v.setPele(rs.getString("Pele"));
+                v.setSexo(rs.getBoolean("Sexo"));
+                v.setPontosDeVida(rs.getInt("pontosDeVida"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar vitima.\n" + e.getMessage());
