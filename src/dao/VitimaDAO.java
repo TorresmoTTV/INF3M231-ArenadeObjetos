@@ -56,4 +56,37 @@ public class VitimaDAO {
         }
         return vitimas;
     }
+
+    public Pessoa getVitimaByNome(String nome) {
+        Pessoa v = new Pessoa();
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "select * from pessoa " + "where nome like ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, nome);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Pessoa vitima = new Pessoa();
+                vitima.setId(rs.getInt("id"));
+                vitima.setNome(rs.getString("Nome"));
+                vitima.setCabelo(rs.getString("Cabelo"));
+                vitima.setOlho(rs.getString("Olho"));
+                vitima.setPele(rs.getString("Pele"));
+                vitima.setSexo(rs.getBoolean("Sexo"));
+                vitima.setPontosDeVida(rs.getInt("pontosDeVida"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar vitima.\n" + e.getMessage());
+        }
+        return v;
+    }
+
+    public void atualizarVitima(Pessoa vVO) {
+
+    }
+
+    public boolean deletarVitima(String nome) {
+
+        return true;
+    }
 }

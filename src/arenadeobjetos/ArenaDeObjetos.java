@@ -86,6 +86,9 @@ public class ArenaDeObjetos {
                 System.out.println("--- Vitimas do Banco de Dados ---");
                 VitimaServicos vs = ServicosFactory.getVitimaServicos();
                 System.out.println(vs.listaVitimas().toString());
+
+                System.out.println("-- Teste de Busca por nome --");
+                System.out.println(vs.buscaVitimaByNome("Lula").toString());
                 break;
             case 3:
 
