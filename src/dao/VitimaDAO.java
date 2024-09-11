@@ -38,8 +38,18 @@ public class VitimaDAO {
             String sql = "select * from pessoa "
                     + "where armamento is null "
                     + "and planoDeFuga is null";
-                PreparedStatement pst = con.prepareStatement(sql);
-                ResultSet rs = pst.executeQuery();
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Pessoa vitima = new Pessoa();
+                vitima.setNome(rs.getString("Nome"));
+                vitima.setCabelo(rs.getString("Cabelo"));
+                vitima.setOlho(rs.getString("Olho"));
+                vitima.setPele(rs.getString("Pele"));
+                vitima.setSexo(rs.getBoolean("Sexo"));
+                vitima.setPontosDeVida(rs.getInt("pontosDeVida"));
+                vitimas.add(vitima);
+            }
         } catch (Exception e) {
             System.out.println("Erro ao listar a Vitima.\n"
                     + e.getMessage());

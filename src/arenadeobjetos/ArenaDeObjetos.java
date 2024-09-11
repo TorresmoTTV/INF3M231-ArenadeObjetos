@@ -27,7 +27,7 @@ public class ArenaDeObjetos {
             System.out.print("Tente novamente: ");
             lerInt();
         }
-        // ler.close();
+        //ler.close();
         return num;
     }
 
@@ -79,6 +79,13 @@ public class ArenaDeObjetos {
                     System.out.println(p.getNome());
                     System.out.println("\t" + p.getPontosDeVida());// \t tabulação
                 }
+                System.out.println("--- Ladrões RAM ---");
+                System.out.println(ladroes.toString());
+                System.out.println("--- Vítimas RAM ---");
+                System.out.println(pessoas.toString());
+                System.out.println("--- Vitimas do Banco de Dados ---");
+                VitimaServicos vs = ServicosFactory.getVitimaServicos();
+                System.out.println(vs.listaVitimas().toString());
                 break;
             case 3:
 
