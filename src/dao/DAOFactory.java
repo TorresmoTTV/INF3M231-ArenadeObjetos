@@ -12,4 +12,11 @@ public class DAOFactory {
     public static GuerreiroDAO getGuerreiroDAO() {
         return gDao;
     }
+
+    private static LadraoDAO lDao = DAOFactory.getLadraoDAO();
+
+    public static LadraoDAO getLadraoDAO() {
+        return lDao;
+    }
+
 }

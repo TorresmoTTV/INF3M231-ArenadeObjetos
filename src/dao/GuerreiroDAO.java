@@ -36,7 +36,7 @@ public class GuerreiroDAO {
         try {
             Connection con = Conexao.getConexao();
             String sql = "select * from guerreiro "
-                    + "where armamento is %?% "
+                    + "where armamento is not null "
                     + "and planoDeFuga is null";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
@@ -62,12 +62,11 @@ public class GuerreiroDAO {
         Guerreiro g = new Guerreiro();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from guerreiro " + "where nome like %?%";
+            String sql = "select * from guerreiro " + "where nome like ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nome);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Guerreiro guerreiro = new Guerreiro();
                 g.setId(rs.getInt("id"));
                 g.setNome(rs.getString("Nome"));
                 g.setCabelo(rs.getString("Cabelo"));
