@@ -50,7 +50,7 @@ public class VitimaDAO {
                 vitima.setPontosDeVida(rs.getInt("pontosDeVida"));
                 vitimas.add(vitima);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao listar a Vitima.\n"
                     + e.getMessage());
         }
@@ -81,11 +81,28 @@ public class VitimaDAO {
     }
 
     public void atualizarVitima(Pessoa vVO) {
-
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "update pessoa set cabelo = ? where id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, vVO.getCabelo());
+                pst.setInt(2, vVO.getId());
+                pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao editar vitima.\n" + e.getMessage());
+        }
     }
 
-    public boolean deletarVitima(String nome) {
-
+    public boolean deletarVitima(int id) {
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "delete from pessoa where id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            return pst.executeUpdate() != 0;
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar a vitima.\n" + e.getMessage());
+        }
         return true;
     }
 }

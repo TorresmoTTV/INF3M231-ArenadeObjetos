@@ -86,8 +86,8 @@ public class LadraoDAO {
 
     }
 
-    public boolean deletarLadrao(String nome) {
-
+    public boolean deletarLadrao(int id) {
+        
         return true;
     }
 }

@@ -21,4 +21,12 @@ public class VitimaServicos {
     public Pessoa buscaVitimaByNome(String Nome) {
         return vDao.getVitimaByNome(Nome);
     }
+
+    public void atualizaVitima(Pessoa vVO) {
+        vDao.atualizarVitima(vVO);
+    }
+
+    public boolean deletarVitima(int id) {
+        return vDao.deletarVitima(id);
+    }
 }

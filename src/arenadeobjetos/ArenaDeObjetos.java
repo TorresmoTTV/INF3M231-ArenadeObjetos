@@ -27,7 +27,7 @@ public class ArenaDeObjetos {
             System.out.print("Tente novamente: ");
             lerInt();
         }
-        //ler.close();
+        // ler.close();
         return num;
     }
 
@@ -89,6 +89,27 @@ public class ArenaDeObjetos {
 
                 System.out.println("-- Teste de Busca por nome --");
                 System.out.println(vs.buscaVitimaByNome("%Lula%").toString());
+                
+                // teste de update
+                // busca vitima
+                Pessoa vUp = vs.buscaVitimaByNome("%Lula%");
+                // Atualiza cor do cabelo
+                vUp.setCabelo("Nao possui");
+                // Executa atualizacao no banco
+                vs.atualizaVitima(vUp);
+                
+                System.out.println("-- Vitima atualizada --");
+                System.out.println(vs.buscaVitimaByNome("%Lula%").toString());
+
+                // Teste de Delete
+                System.out.println("-- Deletar vitima lula --");
+                int id = vs.buscaVitimaByNome("%Lula%").getId();
+                // Executa atualização no banco
+                if (vs.deletarVitima(id)) {
+                    System.out.println("Vitima deletada!");
+                } else {
+                    System.out.println("Vitima não deletada");
+                }
                 break;
             case 3:
 
