@@ -25,4 +25,8 @@ public class LadraoServicos {
     public void atualizarLadrao (Ladrao lVO) {
         lDao.atualizarLadrao(lVO);
     }
+
+    public boolean deletarLadrao (int id) {
+        return lDao.deletarLadrao(id);
+    }
 }

@@ -14,7 +14,7 @@ public class GuerreiroDAO {
         try {
             Connection con = Conexao.getConexao();
             // id, nome, olho, cabelo, pele, sexo, armamento, planoDeFuga, pontosDeVida
-            String sql = "insert into guerreiro values "
+            String sql = "insert into pessoa values "
                     + "(null, ?, ?, ?, ?, ?, ?, null, ?)";// reprodução da ordem baseada no banco de dados
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, gVO.getNome());
@@ -35,20 +35,20 @@ public class GuerreiroDAO {
         ArrayList<Guerreiro> guerreiros = new ArrayList<>();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from guerreiro "
+            String sql = "select * from pessoa "
                     + "where armamento is not null "
                     + "and planoDeFuga is null";
             PreparedStatement pst = con.prepareStatement(sql);
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
+            ResultSet gs = pst.executeQuery();
+            while (gs.next()) {
                 Guerreiro guerreiro = new Guerreiro();
-                guerreiro.setNome(rs.getString("Nome"));
-                guerreiro.setCabelo(rs.getString("Cabelo"));
-                guerreiro.setOlho(rs.getString("Olho"));
-                guerreiro.setPele(rs.getString("Pele"));
-                guerreiro.setSexo(rs.getBoolean("Sexo"));
-                guerreiro.setArmamento(rs.getString("armamento"));
-                guerreiro.setPontosDeVida(rs.getInt("pontosDeVida"));
+                guerreiro.setNome(gs.getString("Nome"));
+                guerreiro.setCabelo(gs.getString("Cabelo"));
+                guerreiro.setOlho(gs.getString("Olho"));
+                guerreiro.setPele(gs.getString("Pele"));
+                guerreiro.setSexo(gs.getBoolean("Sexo"));
+                guerreiro.setArmamento(gs.getString("armamento"));
+                guerreiro.setPontosDeVida(gs.getInt("pontosDeVida"));
                 guerreiros.add(guerreiro);
             }
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class GuerreiroDAO {
         Guerreiro g = new Guerreiro();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from guerreiro " + "where nome like ?";
+            String sql = "select * from pessoa " + "where nome like ? and armamento is not null";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nome);
             ResultSet rs = pst.executeQuery();
@@ -83,11 +83,28 @@ public class GuerreiroDAO {
     }
 
     public void atualizarGuerreiro(Guerreiro gVO) {
-
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "update pessoa set cabelo = ? where id = ? and armamento is not null";
+            PreparedStatement pst = con.prepareStatement(sql);
+                pst.setString(1, gVO.getCabelo());
+                pst.setInt(2, gVO.getId());
+                pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao editar guerreiro.\n" + e.getMessage());
+        }
     }
 
-    public boolean deletarGuerreiro(String nome) {
-
+    public boolean deletarGuerreiro(int id) {
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "delete from pessoa where id = ? and armamento is not null";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            return pst.executeUpdate() != 0;
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar a Guerreiro.\n" + e.getMessage());
+        }
         return true;
     }
 }

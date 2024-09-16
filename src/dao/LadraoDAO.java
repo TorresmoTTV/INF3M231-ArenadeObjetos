@@ -10,20 +10,20 @@ import conexao.Conexao;
 import model.Ladrao;
 
 public class LadraoDAO {
-    public void cadastrarLadrao(Ladrao gVO) {
+    public void cadastrarLadrao(Ladrao lVO) {
         try {
             Connection con = Conexao.getConexao();
             // id, nome, olho, cabelo, pele, sexo, armamento, planoDeFuga, pontosDeVida
-            String sql = "insert into guerreiro values "
+            String sql = "insert into pessoa values "
                     + "(null, ?, ?, ?, ?, ?, null, ?, ?)";// reprodução da ordem baseada no banco de dados
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, gVO.getNome());
-            pst.setString(2, gVO.getOlho());
-            pst.setString(3, gVO.getCabelo());
-            pst.setString(4, gVO.getPele());
-            pst.setBoolean(5, gVO.isSexo());
-            pst.setString(6, gVO.getPlanoDeFuga());
-            pst.setInt(7, gVO.getPontosDeVida());
+            pst.setString(1, lVO.getNome());
+            pst.setString(2, lVO.getOlho());
+            pst.setString(3, lVO.getCabelo());
+            pst.setString(4, lVO.getPele());
+            pst.setBoolean(5, lVO.isSexo());
+            pst.setString(6, lVO.getPlanoDeFuga());
+            pst.setInt(7, lVO.getPontosDeVida());
             pst.execute();// indice para o povoamento da tabela
             System.out.println("Ladrao cadastrado com sucesso!!");
         } catch (SQLException e) {
@@ -35,7 +35,7 @@ public class LadraoDAO {
         ArrayList<Ladrao> ladroes = new ArrayList<>();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from guerreiro "
+            String sql = "select * from pessoa "
                     + "where armamento is not null "
                     + "and planoDeFuga is null";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -62,7 +62,7 @@ public class LadraoDAO {
         Ladrao l = new Ladrao();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from ladrao " + "where nome like ?";
+            String sql = "select * from pessoa " + "where nome like ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, nome);
             ResultSet rs = pst.executeQuery();
@@ -83,11 +83,28 @@ public class LadraoDAO {
     }
 
     public void atualizarLadrao(Ladrao lVO) {
-
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "update pessoa set cabelo = ? where id = ? and planoDeFuga is not null";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, lVO.getCabelo());
+            pst.setInt(2, lVO.getId());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro ao editar Ladrao.\n" + e.getMessage());
+        }
     }
 
     public boolean deletarLadrao(int id) {
-        
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "delete from pessoa where id = ? and planoDeFuga is not null";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            return pst.executeUpdate() != 0;
+        } catch (SQLException e) {
+            System.out.println("Erro ao deletar a Ladrao.\n" + e.getMessage());
+        }
         return true;
     }
 }

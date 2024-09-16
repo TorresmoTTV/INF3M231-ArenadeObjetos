@@ -2,18 +2,16 @@ package dao;
 
 public class DAOFactory {
     private static VitimaDAO vDao = new VitimaDAO();
+    private static GuerreiroDAO gDao = new GuerreiroDAO();
+    private static LadraoDAO lDao = new LadraoDAO();
 
     public static VitimaDAO getVitimaDAO() {
         return vDao;
     }
 
-    private static GuerreiroDAO gDao = DAOFactory.getGuerreiroDAO();
-
     public static GuerreiroDAO getGuerreiroDAO() {
         return gDao;
     }
-
-    private static LadraoDAO lDao = DAOFactory.getLadraoDAO();
 
     public static LadraoDAO getLadraoDAO() {
         return lDao;

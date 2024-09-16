@@ -21,4 +21,12 @@ public class GuerreiroServicos {
     public Guerreiro buscaGuerreiroByNome(String Nome) {
         return gDao.getGuerreiroByNome(Nome);
     }
+
+    public void atualizaGuerreiro(Guerreiro gVO) {
+        gDao.atualizarGuerreiro(gVO);
+    }
+
+    public boolean deletarGuerreiro(int id) {
+        return gDao.deletarGuerreiro(id);
+    }
 }
