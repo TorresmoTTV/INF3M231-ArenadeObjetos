@@ -42,6 +42,7 @@ public class VitimaDAO {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Pessoa vitima = new Pessoa();
+                vitima.setId(rs.getInt("id"));
                 vitima.setNome(rs.getString("Nome"));
                 vitima.setCabelo(rs.getString("Cabelo"));
                 vitima.setOlho(rs.getString("Olho"));
@@ -85,9 +86,9 @@ public class VitimaDAO {
             Connection con = Conexao.getConexao();
             String sql = "update pessoa set cabelo = ? where id = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, vVO.getCabelo());
-                pst.setInt(2, vVO.getId());
-                pst.executeUpdate();
+            pst.setString(1, vVO.getCabelo());
+            pst.setInt(2, vVO.getId());
+            pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao editar vitima.\n" + e.getMessage());
         }

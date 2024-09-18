@@ -10,6 +10,7 @@ import conexao.Conexao;
 import model.Ladrao;
 
 public class LadraoDAO {
+
     public void cadastrarLadrao(Ladrao lVO) {
         try {
             Connection con = Conexao.getConexao();
@@ -36,12 +37,13 @@ public class LadraoDAO {
         try {
             Connection con = Conexao.getConexao();
             String sql = "select * from pessoa "
-                    + "where armamento is not null "
-                    + "and planoDeFuga is null";
+                    + "where armamento is null "
+                    + "and planoDeFuga is not null";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Ladrao ladrao = new Ladrao();
+                ladrao.setId(rs.getInt("id"));
                 ladrao.setNome(rs.getString("Nome"));
                 ladrao.setCabelo(rs.getString("Cabelo"));
                 ladrao.setOlho(rs.getString("Olho"));
@@ -51,7 +53,7 @@ public class LadraoDAO {
                 ladrao.setPontosDeVida(rs.getInt("pontosDeVida"));
                 ladroes.add(ladrao);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao listar o Ladrao.\n"
                     + e.getMessage());
         }
