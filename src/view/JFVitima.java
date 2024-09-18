@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Pessoa;
 import servicos.ServicosFactory;
@@ -24,7 +25,7 @@ public class JFVitima extends javax.swing.JFrame {
         addRowToTable();
     }
 
-    public void addRowToTable() {
+    private void addRowToTable() {
         //pega a modelagem da tabela na interface gráfica 
         DefaultTableModel model = (DefaultTableModel) jtVitimas.getModel();
         model.getDataVector().removeAllElements();// remove todas as linhas
@@ -45,6 +46,39 @@ public class JFVitima extends javax.swing.JFrame {
             model.addRow(rowData);
         }
 
+    }// fim addRowToTable
+
+    private void limpaCampos() {
+        jtfNomeVitima.setText("");
+        jtfCabeloVitima.setText("");
+        jtfOlhoVitima.setText("");
+        jtfPeleVitima.setText("");
+        bgSexoVitima.clearSelection();
+        jtfNomeVitima.requestFocus();
+    }
+
+    private boolean validaInputs() {
+        if (jtfNomeVitima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher o nome!");
+            jtfNomeVitima.requestFocus();
+            return false;
+        }
+        if (jtfCabeloVitima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor cabelo!");
+            jtfCabeloVitima.requestFocus();
+            return false;
+        }
+        if (jtfOlhoVitima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor do olho!");
+            jtfOlhoVitima.requestFocus();
+            return false;
+        }
+        if (jtfPeleVitima.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor da pele!");
+            jtfPeleVitima.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -69,7 +103,7 @@ public class JFVitima extends javax.swing.JFrame {
         jtfPeleVitima = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jjrbFemininoVitima = new javax.swing.JRadioButton();
+        jrbFemininoVitima = new javax.swing.JRadioButton();
         jrbMasculinoVitima = new javax.swing.JRadioButton();
         jbSalvarVitima = new javax.swing.JButton();
         jbLimparVitima = new javax.swing.JButton();
@@ -126,11 +160,11 @@ public class JFVitima extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel6.setText("Sexo:");
 
-        bgSexoVitima.add(jjrbFemininoVitima);
-        jjrbFemininoVitima.setText("Feminino");
-        jjrbFemininoVitima.addActionListener(new java.awt.event.ActionListener() {
+        bgSexoVitima.add(jrbFemininoVitima);
+        jrbFemininoVitima.setText("Feminino");
+        jrbFemininoVitima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jjrbFemininoVitimaActionPerformed(evt);
+                jrbFemininoVitimaActionPerformed(evt);
             }
         });
 
@@ -138,6 +172,11 @@ public class JFVitima extends javax.swing.JFrame {
         jrbMasculinoVitima.setText("Masculino");
 
         jbSalvarVitima.setText("Salvar");
+        jbSalvarVitima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarVitimaActionPerformed(evt);
+            }
+        });
 
         jbLimparVitima.setText("Limpar");
         jbLimparVitima.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +252,7 @@ public class JFVitima extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jjrbFemininoVitima)
+                                        .addComponent(jrbFemininoVitima)
                                         .addComponent(jrbMasculinoVitima)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
@@ -250,7 +289,7 @@ public class JFVitima extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jjrbFemininoVitima)
+                        .addComponent(jrbFemininoVitima)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jrbMasculinoVitima)))
                 .addGap(18, 18, 18)
@@ -290,13 +329,32 @@ public class JFVitima extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfPeleVitimaActionPerformed
 
-    private void jjrbFemininoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjrbFemininoVitimaActionPerformed
+    private void jrbFemininoVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFemininoVitimaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jjrbFemininoVitimaActionPerformed
+    }//GEN-LAST:event_jrbFemininoVitimaActionPerformed
 
     private void jbLimparVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparVitimaActionPerformed
         // TODO add your handling code here:
+        limpaCampos();
     }//GEN-LAST:event_jbLimparVitimaActionPerformed
+
+    private void jbSalvarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarVitimaActionPerformed
+        // TODO add your handling code here:
+        if (validaInputs()) {
+            Pessoa v = new Pessoa();
+            v.setNome(jtfNomeVitima.getText().toUpperCase());
+            v.setCabelo(jtfCabeloVitima.getText().toUpperCase());
+            v.setOlho(jtfOlhoVitima.getText().toUpperCase());
+            v.setPele(jtfPeleVitima.getText().toUpperCase());
+            if (jrbFemininoVitima.isSelected() || jrbMasculinoVitima.isSelected()) {
+                v.setSexo(!jrbFemininoVitima.isSelected());
+            }
+            VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
+            vitimaS.cadastrarVitima(v);
+            addRowToTable();
+            limpaCampos();
+        }
+    }//GEN-LAST:event_jbSalvarVitimaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,7 +406,7 @@ public class JFVitima extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbLimparVitima;
     private javax.swing.JButton jbSalvarVitima;
-    private javax.swing.JRadioButton jjrbFemininoVitima;
+    private javax.swing.JRadioButton jrbFemininoVitima;
     private javax.swing.JRadioButton jrbMasculinoVitima;
     private javax.swing.JTable jtVitimas;
     private javax.swing.JTextField jtfCabeloVitima;

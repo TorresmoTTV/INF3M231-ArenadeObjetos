@@ -75,7 +75,7 @@
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jjrbFemininoVitima" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jrbFemininoVitima" min="-2" max="-2" attributes="0"/>
                                           <Component id="jrbMasculinoVitima" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -125,7 +125,7 @@
                           <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jjrbFemininoVitima" min="-2" max="-2" attributes="0"/>
+                          <Component id="jrbFemininoVitima" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jrbMasculinoVitima" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -240,7 +240,7 @@
             <Property name="text" type="java.lang.String" value="Sexo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jjrbFemininoVitima">
+        <Component class="javax.swing.JRadioButton" name="jrbFemininoVitima">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="bgSexoVitima"/>
@@ -248,7 +248,7 @@
             <Property name="text" type="java.lang.String" value="Feminino"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jjrbFemininoVitimaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbFemininoVitimaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jrbMasculinoVitima">
@@ -263,6 +263,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbSalvarVitimaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbLimparVitima">
           <Properties>

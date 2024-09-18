@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Guerreiro;
 import servicos.ServicosFactory;
@@ -23,7 +24,8 @@ public class JFGuerreiro extends javax.swing.JFrame {
         initComponents();
         addRowToTable();
     }
-    public void addRowToTable() {
+
+    private void addRowToTable() {
         //pega a modelagem da tabela na interface gráfica 
         DefaultTableModel model = (DefaultTableModel) jtGuerreiro.getModel();
         model.getDataVector().removeAllElements();// remove todas as linhas
@@ -45,6 +47,41 @@ public class JFGuerreiro extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
+
+    private void limpaCampos() {
+        jtfNomeGuerreiro.setText("");
+        jtfCabeloGuerreiro.setText("");
+        jtfOlhoGuerreiro.setText("");
+        jtfPeleGuerreiro.setText("");
+        jtfArmamento.setText("");
+        bgSexoGuerreiro.clearSelection();
+        jtfNomeGuerreiro.requestFocus();
+    }
+
+    private boolean validaInputs() {
+        if (jtfNomeGuerreiro.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher o nome!");
+            jtfNomeGuerreiro.requestFocus();
+            return false;
+        }
+        if (jtfCabeloGuerreiro.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor cabelo!");
+            jtfCabeloGuerreiro.requestFocus();
+            return false;
+        }
+        if (jtfOlhoGuerreiro.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor do olho!");
+            jtfOlhoGuerreiro.requestFocus();
+            return false;
+        }
+        if (jtfPeleGuerreiro.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor da pele!");
+            jtfPeleGuerreiro.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +104,7 @@ public class JFGuerreiro extends javax.swing.JFrame {
         jtfPeleGuerreiro = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jjrbFemininoGuerreiro = new javax.swing.JRadioButton();
+        jrbFemininoGuerreiro = new javax.swing.JRadioButton();
         jrbMasculinoGuerreiro = new javax.swing.JRadioButton();
         jbSalvarGuerreiro = new javax.swing.JButton();
         jbLimparGuerreiro = new javax.swing.JButton();
@@ -82,7 +119,7 @@ public class JFGuerreiro extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Cadastro de Ladrao");
+        jLabel1.setText("Cadastro de Guerreiro");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel2.setText("Nome:");
@@ -126,11 +163,11 @@ public class JFGuerreiro extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel6.setText("Sexo:");
 
-        bgSexoGuerreiro.add(jjrbFemininoGuerreiro);
-        jjrbFemininoGuerreiro.setText("Feminino");
-        jjrbFemininoGuerreiro.addActionListener(new java.awt.event.ActionListener() {
+        bgSexoGuerreiro.add(jrbFemininoGuerreiro);
+        jrbFemininoGuerreiro.setText("Feminino");
+        jrbFemininoGuerreiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jjrbFemininoGuerreiroActionPerformed(evt);
+                jrbFemininoGuerreiroActionPerformed(evt);
             }
         });
 
@@ -138,6 +175,11 @@ public class JFGuerreiro extends javax.swing.JFrame {
         jrbMasculinoGuerreiro.setText("Masculino");
 
         jbSalvarGuerreiro.setText("Salvar");
+        jbSalvarGuerreiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarGuerreiroActionPerformed(evt);
+            }
+        });
 
         jbLimparGuerreiro.setText("Limpar");
         jbLimparGuerreiro.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +269,7 @@ public class JFGuerreiro extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jjrbFemininoGuerreiro)
+                                        .addComponent(jrbFemininoGuerreiro)
                                         .addComponent(jrbMasculinoGuerreiro)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
@@ -269,7 +311,7 @@ public class JFGuerreiro extends javax.swing.JFrame {
                             .addComponent(jtfArmamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jjrbFemininoGuerreiro)
+                        .addComponent(jrbFemininoGuerreiro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jrbMasculinoGuerreiro)))
                 .addGap(18, 18, 18)
@@ -309,17 +351,38 @@ public class JFGuerreiro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfPeleGuerreiroActionPerformed
 
-    private void jjrbFemininoGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjrbFemininoGuerreiroActionPerformed
+    private void jrbFemininoGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFemininoGuerreiroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jjrbFemininoGuerreiroActionPerformed
+    }//GEN-LAST:event_jrbFemininoGuerreiroActionPerformed
 
     private void jbLimparGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparGuerreiroActionPerformed
         // TODO add your handling code here:
+        limpaCampos();
     }//GEN-LAST:event_jbLimparGuerreiroActionPerformed
 
     private void jtfArmamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfArmamentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfArmamentoActionPerformed
+
+    private void jbSalvarGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarGuerreiroActionPerformed
+        // TODO add your handling code here:
+        if (validaInputs()) {
+            validaInputs();
+            Guerreiro g = new Guerreiro();
+            g.setNome(jtfNomeGuerreiro.getText().toUpperCase());
+            g.setCabelo(jtfCabeloGuerreiro.getText().toUpperCase());
+            g.setOlho(jtfOlhoGuerreiro.getText().toUpperCase());
+            g.setPele(jtfPeleGuerreiro.getText().toUpperCase());
+            g.setArmamento(jtfArmamento.getText().toUpperCase());
+            if (jrbFemininoGuerreiro.isSelected() || jrbMasculinoGuerreiro.isSelected()) {
+                g.setSexo(!jrbFemininoGuerreiro.isSelected());
+            }
+            GuerreiroServicos guerreiroS = ServicosFactory.getGuerreiroServicos();
+            guerreiroS.cadastrarGuerreiro(g);
+            addRowToTable();
+            limpaCampos();
+        }
+    }//GEN-LAST:event_jbSalvarGuerreiroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,7 +441,7 @@ public class JFGuerreiro extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbLimparGuerreiro;
     private javax.swing.JButton jbSalvarGuerreiro;
-    private javax.swing.JRadioButton jjrbFemininoGuerreiro;
+    private javax.swing.JRadioButton jrbFemininoGuerreiro;
     private javax.swing.JRadioButton jrbMasculinoGuerreiro;
     private javax.swing.JTable jtGuerreiro;
     private javax.swing.JTextField jtfArmamento;

@@ -5,6 +5,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Ladrao;
 import servicos.ServicosFactory;
@@ -17,13 +18,14 @@ import servicos.LadraoServicos;
 public class JFLadrao extends javax.swing.JFrame {
 
     /**
-     * Creates new form Vitima
+     * Creates new form Ladrao
      */
     public JFLadrao() {
         initComponents();
         addRowToTable();
     }
-    public void addRowToTable() {
+
+    private void addRowToTable() {
         //pega a modelagem da tabela na interface gráfica 
         DefaultTableModel model = (DefaultTableModel) jtLadrao.getModel();
         model.getDataVector().removeAllElements();// remove todas as linhas
@@ -45,6 +47,41 @@ public class JFLadrao extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
+
+    private void limpaCampos() {
+        jtfNomeLadrao.setText("");
+        jtfCabeloLadrao.setText("");
+        jtfOlhoLadrao.setText("");
+        jtfPeleLadrao.setText("");
+        jtfPlanodeFuga.setText("");
+        bgSexoLadrao.clearSelection();
+        jtfNomeLadrao.requestFocus();
+    }
+
+    private boolean validaInputs() {
+        if (jtfNomeLadrao.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher o nome!");
+            jtfNomeLadrao.requestFocus();
+            return false;
+        }
+        if (jtfCabeloLadrao.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor cabelo!");
+            jtfCabeloLadrao.requestFocus();
+            return false;
+        }
+        if (jtfOlhoLadrao.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor do olho!");
+            jtfOlhoLadrao.requestFocus();
+            return false;
+        }
+        if (jtfPeleLadrao.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Preencher a cor da pele!");
+            jtfPeleLadrao.requestFocus();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,7 +104,7 @@ public class JFLadrao extends javax.swing.JFrame {
         jtfPeleLadrao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jjrbFemininoLadrao = new javax.swing.JRadioButton();
+        jrbFemininoLadrao = new javax.swing.JRadioButton();
         jrbMasculinoLadrao = new javax.swing.JRadioButton();
         jbSalvarLadrao = new javax.swing.JButton();
         jbLimparLadrao = new javax.swing.JButton();
@@ -126,11 +163,11 @@ public class JFLadrao extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel6.setText("Sexo:");
 
-        bgSexoLadrao.add(jjrbFemininoLadrao);
-        jjrbFemininoLadrao.setText("Feminino");
-        jjrbFemininoLadrao.addActionListener(new java.awt.event.ActionListener() {
+        bgSexoLadrao.add(jrbFemininoLadrao);
+        jrbFemininoLadrao.setText("Feminino");
+        jrbFemininoLadrao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jjrbFemininoLadraoActionPerformed(evt);
+                jrbFemininoLadraoActionPerformed(evt);
             }
         });
 
@@ -138,6 +175,11 @@ public class JFLadrao extends javax.swing.JFrame {
         jrbMasculinoLadrao.setText("Masculino");
 
         jbSalvarLadrao.setText("Salvar");
+        jbSalvarLadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarLadraoActionPerformed(evt);
+            }
+        });
 
         jbLimparLadrao.setText("Limpar");
         jbLimparLadrao.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +269,7 @@ public class JFLadrao extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jjrbFemininoLadrao)
+                                        .addComponent(jrbFemininoLadrao)
                                         .addComponent(jrbMasculinoLadrao)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel4)
@@ -269,7 +311,7 @@ public class JFLadrao extends javax.swing.JFrame {
                             .addComponent(jtfPlanodeFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jjrbFemininoLadrao)
+                        .addComponent(jrbFemininoLadrao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jrbMasculinoLadrao)))
                 .addGap(18, 18, 18)
@@ -309,17 +351,37 @@ public class JFLadrao extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfPeleLadraoActionPerformed
 
-    private void jjrbFemininoLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jjrbFemininoLadraoActionPerformed
+    private void jrbFemininoLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFemininoLadraoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jjrbFemininoLadraoActionPerformed
+    }//GEN-LAST:event_jrbFemininoLadraoActionPerformed
 
     private void jbLimparLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparLadraoActionPerformed
         // TODO add your handling code here:
+        limpaCampos();
     }//GEN-LAST:event_jbLimparLadraoActionPerformed
 
     private void jtfPlanodeFugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPlanodeFugaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfPlanodeFugaActionPerformed
+
+    private void jbSalvarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarLadraoActionPerformed
+        // TODO add your handling code here:
+        if (validaInputs()) {
+            Ladrao l = new Ladrao();
+            l.setNome(jtfNomeLadrao.getText().toUpperCase());
+            l.setCabelo(jtfCabeloLadrao.getText().toUpperCase());
+            l.setOlho(jtfOlhoLadrao.getText().toUpperCase());
+            l.setPele(jtfPeleLadrao.getText().toUpperCase());
+            l.setPlanoDeFuga(jtfPlanodeFuga.getText().toUpperCase());
+            if (jrbFemininoLadrao.isSelected() || jrbMasculinoLadrao.isSelected()) {
+                l.setSexo(!jrbFemininoLadrao.isSelected());
+            }
+            LadraoServicos ladraoS = ServicosFactory.getLadraoServicos();
+            ladraoS.cadastrarLadrao(l);
+            addRowToTable();
+            limpaCampos();
+        }
+    }//GEN-LAST:event_jbSalvarLadraoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -374,7 +436,7 @@ public class JFLadrao extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbLimparLadrao;
     private javax.swing.JButton jbSalvarLadrao;
-    private javax.swing.JRadioButton jjrbFemininoLadrao;
+    private javax.swing.JRadioButton jrbFemininoLadrao;
     private javax.swing.JRadioButton jrbMasculinoLadrao;
     private javax.swing.JTable jtLadrao;
     private javax.swing.JTextField jtfCabeloLadrao;
