@@ -23,6 +23,8 @@ public class JFGuerreiro extends javax.swing.JFrame {
     public JFGuerreiro() {
         initComponents();
         addRowToTable();
+        jbEditarGuerreiro.setVisible(false);
+        jbDeletarGuerreiro.setVisible(false);
     }
 
     private void addRowToTable() {
@@ -117,6 +119,8 @@ public class JFGuerreiro extends javax.swing.JFrame {
         jtGuerreiro = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jtfArmamento = new javax.swing.JTextField();
+        jbDeletarGuerreiro = new javax.swing.JButton();
+        jbEditarGuerreiro = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +219,11 @@ public class JFGuerreiro extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtGuerreiro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtGuerreiroMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtGuerreiro);
         if (jtGuerreiro.getColumnModel().getColumnCount() > 0) {
             jtGuerreiro.getColumnModel().getColumn(0).setResizable(false);
@@ -238,6 +247,20 @@ public class JFGuerreiro extends javax.swing.JFrame {
             }
         });
 
+        jbDeletarGuerreiro.setText("Deletar");
+        jbDeletarGuerreiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarGuerreiroActionPerformed(evt);
+            }
+        });
+
+        jbEditarGuerreiro.setText("Editar");
+        jbEditarGuerreiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarGuerreiroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,40 +274,47 @@ public class JFGuerreiro extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(263, 263, 263)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jtfNomeGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel7))
-                            .addGap(8, 8, 8)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtfArmamento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfPeleGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfCabeloGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jrbFemininoGuerreiro)
-                                        .addComponent(jrbMasculinoGuerreiro)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jtfOlhoGuerreiro)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jbSalvarGuerreiro)
-                        .addGap(160, 160, 160)
-                        .addComponent(jbLimparGuerreiro)))
-                .addGap(0, 236, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfNomeGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jbSalvarGuerreiro))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfArmamento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfPeleGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfCabeloGuerreiro, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jbLimparGuerreiro)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jrbFemininoGuerreiro)
+                                            .addComponent(jrbMasculinoGuerreiro)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtfOlhoGuerreiro, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbEditarGuerreiro)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbDeletarGuerreiro)))))
+                .addGap(0, 227, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,8 +350,12 @@ public class JFGuerreiro extends javax.swing.JFrame {
                         .addComponent(jrbMasculinoGuerreiro)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbLimparGuerreiro)
-                    .addComponent(jbSalvarGuerreiro))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbSalvarGuerreiro)
+                        .addComponent(jbDeletarGuerreiro))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbLimparGuerreiro)
+                        .addComponent(jbEditarGuerreiro)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -388,6 +422,36 @@ public class JFGuerreiro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbSalvarGuerreiroActionPerformed
 
+    private void jbDeletarGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarGuerreiroActionPerformed
+        // TODO add your handling code here:
+        int linha = jtGuerreiro.getSelectedRow();
+        int id = (int) jtGuerreiro.getValueAt(linha, 0);
+        String nome = (String) jtGuerreiro.getValueAt(linha, 1);
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
+        if (resp == 0) {
+            GuerreiroServicos GuerreiroS = ServicosFactory.getGuerreiroServicos();
+            GuerreiroS.deletarGuerreiro(id);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Guerreiro " + nome + " deletada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+        }
+        jbEditarGuerreiro.setVisible(false);
+        jbDeletarGuerreiro.setVisible(false);
+    }//GEN-LAST:event_jbDeletarGuerreiroActionPerformed
+
+    private void jbEditarGuerreiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarGuerreiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarGuerreiroActionPerformed
+
+    private void jtGuerreiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtGuerreiroMouseClicked
+        // TODO add your handling code here:
+        jbEditarGuerreiro.setVisible(true);
+        jbDeletarGuerreiro.setVisible(true);
+    }//GEN-LAST:event_jtGuerreiroMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -443,6 +507,8 @@ public class JFGuerreiro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbDeletarGuerreiro;
+    private javax.swing.JButton jbEditarGuerreiro;
     private javax.swing.JButton jbLimparGuerreiro;
     private javax.swing.JButton jbSalvarGuerreiro;
     private javax.swing.JRadioButton jrbFemininoGuerreiro;

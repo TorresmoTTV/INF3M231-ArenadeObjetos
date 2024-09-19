@@ -23,6 +23,8 @@ public class JFVitima extends javax.swing.JFrame {
     public JFVitima() {
         initComponents();
         addRowToTable();
+        jbEditarVitima.setVisible(false);
+        jbDeletarVitima.setVisible(false);
     }
 
     private void addRowToTable() {
@@ -115,6 +117,7 @@ public class JFVitima extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtVitimas = new javax.swing.JTable();
         jbDeletarVitima = new javax.swing.JButton();
+        jbEditarVitima = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -213,6 +216,11 @@ public class JFVitima extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtVitimas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtVitimasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtVitimas);
         if (jtVitimas.getColumnModel().getColumnCount() > 0) {
             jtVitimas.getColumnModel().getColumn(0).setResizable(false);
@@ -228,6 +236,13 @@ public class JFVitima extends javax.swing.JFrame {
         jbDeletarVitima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbDeletarVitimaActionPerformed(evt);
+            }
+        });
+
+        jbEditarVitima.setText("Editar");
+        jbEditarVitima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarVitimaActionPerformed(evt);
             }
         });
 
@@ -251,31 +266,37 @@ public class JFVitima extends javax.swing.JFrame {
                         .addComponent(jtfNomeVitima, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfPeleVitima, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfCabeloVitima, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfPeleVitima, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfCabeloVitima, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jbSalvarVitima)
+                                .addGap(53, 53, 53)
+                                .addComponent(jbLimparVitima)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jrbFemininoVitima)
-                                    .addComponent(jrbMasculinoVitima)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jrbFemininoVitima)
+                                            .addComponent(jrbMasculinoVitima)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jtfOlhoVitima))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtfOlhoVitima))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jbSalvarVitima)
-                        .addGap(45, 45, 45)
-                        .addComponent(jbLimparVitima)
-                        .addGap(44, 44, 44)
-                        .addComponent(jbDeletarVitima)
-                        .addGap(51, 51, 51)))
+                                .addGap(38, 38, 38)
+                                .addComponent(jbEditarVitima)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbDeletarVitima)))))
                 .addGap(0, 236, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -309,7 +330,8 @@ public class JFVitima extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalvarVitima)
                     .addComponent(jbLimparVitima)
-                    .addComponent(jbDeletarVitima))
+                    .addComponent(jbDeletarVitima)
+                    .addComponent(jbEditarVitima))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,8 +394,33 @@ public class JFVitima extends javax.swing.JFrame {
 
     private void jbDeletarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarVitimaActionPerformed
         // TODO add your handling code here:
-        
+        int linha = jtVitimas.getSelectedRow();
+        int id = (int) jtVitimas.getValueAt(linha, 0);
+        String nome = (String) jtVitimas.getValueAt(linha, 1);
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
+        if (resp == 0) {
+            VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
+            vitimaS.deletarVitima(id);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Vitima " + nome + " deletada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+        }
+        jbEditarVitima.setVisible(false);
+        jbDeletarVitima.setVisible(false);
     }//GEN-LAST:event_jbDeletarVitimaActionPerformed
+
+    private void jbEditarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarVitimaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarVitimaActionPerformed
+
+    private void jtVitimasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVitimasMouseClicked
+        // TODO add your handling code here:
+        jbEditarVitima.setVisible(true);
+        jbDeletarVitima.setVisible(true);
+    }//GEN-LAST:event_jtVitimasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -424,6 +471,7 @@ public class JFVitima extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbDeletarVitima;
+    private javax.swing.JButton jbEditarVitima;
     private javax.swing.JButton jbLimparVitima;
     private javax.swing.JButton jbSalvarVitima;
     private javax.swing.JRadioButton jrbFemininoVitima;

@@ -23,6 +23,8 @@ public class JFLadrao extends javax.swing.JFrame {
     public JFLadrao() {
         initComponents();
         addRowToTable();
+        jbEditarLadrao.setVisible(false);
+        jbDeletarLadrao.setVisible(false);
     }
 
     private void addRowToTable() {
@@ -117,6 +119,8 @@ public class JFLadrao extends javax.swing.JFrame {
         jtLadrao = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jtfPlanodeFuga = new javax.swing.JTextField();
+        jbDeletarLadrao = new javax.swing.JButton();
+        jbEditarLadrao = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,6 +219,11 @@ public class JFLadrao extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtLadrao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtLadraoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtLadrao);
         if (jtLadrao.getColumnModel().getColumnCount() > 0) {
             jtLadrao.getColumnModel().getColumn(0).setResizable(false);
@@ -238,6 +247,20 @@ public class JFLadrao extends javax.swing.JFrame {
             }
         });
 
+        jbDeletarLadrao.setText("Deletar");
+        jbDeletarLadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarLadraoActionPerformed(evt);
+            }
+        });
+
+        jbEditarLadrao.setText("Editar");
+        jbEditarLadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarLadraoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,40 +274,42 @@ public class JFLadrao extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(263, 263, 263)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jtfNomeLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel7))
-                            .addGap(8, 8, 8)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jtfPlanodeFuga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfPeleLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfCabeloLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jrbFemininoLadrao)
-                                        .addComponent(jrbMasculinoLadrao)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jtfOlhoLadrao)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jbSalvarLadrao)
-                        .addGap(160, 160, 160)
-                        .addComponent(jbLimparLadrao)))
-                .addGap(0, 236, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtfNomeLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(jbSalvarLadrao))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbLimparLadrao)
+                            .addComponent(jtfPlanodeFuga, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfPeleLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfCabeloLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtfOlhoLadrao))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jbEditarLadrao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jbDeletarLadrao)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jrbFemininoLadrao)
+                                            .addComponent(jrbMasculinoLadrao))))))))
+                .addGap(0, 177, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,9 +344,11 @@ public class JFLadrao extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jrbMasculinoLadrao)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSalvarLadrao)
                     .addComponent(jbLimparLadrao)
-                    .addComponent(jbSalvarLadrao))
+                    .addComponent(jbDeletarLadrao)
+                    .addComponent(jbEditarLadrao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -387,6 +414,36 @@ public class JFLadrao extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbSalvarLadraoActionPerformed
 
+    private void jbDeletarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarLadraoActionPerformed
+        // TODO add your handling code here:
+        int linha = jtLadrao.getSelectedRow();
+        int id = (int) jtLadrao.getValueAt(linha, 0);
+        String nome = (String) jtLadrao.getValueAt(linha, 1);
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
+        if (resp == 0) {
+            LadraoServicos LadraoS = ServicosFactory.getLadraoServicos();
+            LadraoS.deletarLadrao(id);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Ladrao " + nome + " deletada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+        }
+        jbEditarLadrao.setVisible(false);
+        jbDeletarLadrao.setVisible(false);
+    }//GEN-LAST:event_jbDeletarLadraoActionPerformed
+
+    private void jbEditarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarLadraoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarLadraoActionPerformed
+
+    private void jtLadraoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLadraoMouseClicked
+        // TODO add your handling code here:
+        jbEditarLadrao.setVisible(true);
+        jbDeletarLadrao.setVisible(true);
+    }//GEN-LAST:event_jtLadraoMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -438,6 +495,8 @@ public class JFLadrao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton jbDeletarLadrao;
+    private javax.swing.JButton jbEditarLadrao;
     private javax.swing.JButton jbLimparLadrao;
     private javax.swing.JButton jbSalvarLadrao;
     private javax.swing.JRadioButton jrbFemininoLadrao;
