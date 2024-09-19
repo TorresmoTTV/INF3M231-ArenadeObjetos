@@ -79,6 +79,10 @@ public class JFLadrao extends javax.swing.JFrame {
             jtfPeleLadrao.requestFocus();
             return false;
         }
+        if (!jrbFemininoLadrao.isSelected() && !jrbMasculinoLadrao.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Selecionar o sexo!");
+            return false;
+        }
         return true;
     }
 

@@ -18,7 +18,7 @@ import servicos.GuerreiroServicos;
 public class JFGuerreiro extends javax.swing.JFrame {
 
     /**
-     * Creates new form Vitima
+     * Creates new form Guerreiro
      */
     public JFGuerreiro() {
         initComponents();
@@ -77,6 +77,10 @@ public class JFGuerreiro extends javax.swing.JFrame {
         if (jtfPeleGuerreiro.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencher a cor da pele!");
             jtfPeleGuerreiro.requestFocus();
+            return false;
+        }
+        if (!jrbFemininoGuerreiro.isSelected() && !jrbMasculinoGuerreiro.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Selecionar o sexo!");
             return false;
         }
         return true;
