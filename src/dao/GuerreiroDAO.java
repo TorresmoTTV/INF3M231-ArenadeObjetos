@@ -10,6 +10,7 @@ import conexao.Conexao;
 import model.Guerreiro;
 
 public class GuerreiroDAO {
+
     public void cadastrarGuerreiro(Guerreiro gVO) {
         try {
             Connection con = Conexao.getConexao();
@@ -86,11 +87,21 @@ public class GuerreiroDAO {
     public void atualizarGuerreiro(Guerreiro gVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update pessoa set cabelo = ? where id = ? and armamento is not null";
+            String sql = "update pessoa set nome = ?,"
+                    + "olho = ?,"
+                    + "cabelo = ?,"
+                    + "pele = ?,"
+                    + "armamento = ?,"
+                    + "pontosDeVida = ?"
+                    + " where id = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, gVO.getCabelo());
-                pst.setInt(2, gVO.getId());
-                pst.executeUpdate();
+            pst.setString(1, gVO.getNome());
+            pst.setString(2, gVO.getOlho());
+            pst.setString(3, gVO.getCabelo());
+            pst.setString(4, gVO.getPele());
+            pst.setString(6, gVO.getArmamento());
+            pst.setInt(7, gVO.getId());
+            pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao editar guerreiro.\n" + e.getMessage());
         }
@@ -107,5 +118,29 @@ public class GuerreiroDAO {
             System.out.println("Erro ao deletar a Guerreiro.\n" + e.getMessage());
         }
         return true;
+    }
+
+    public Guerreiro getGuerreiroById(int id) {
+        Guerreiro g = new Guerreiro();
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "select * from pessoa " + "where nome like ? and armamento is not null";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                g.setId(rs.getInt("id"));
+                g.setNome(rs.getString("Nome"));
+                g.setCabelo(rs.getString("Cabelo"));
+                g.setOlho(rs.getString("Olho"));
+                g.setPele(rs.getString("Pele"));
+                g.setSexo(rs.getBoolean("Sexo"));
+                g.setArmamento(rs.getString("armamento"));
+                g.setPontosDeVida(rs.getInt("pontosDeVida"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar Guerreiro.\n" + e.getMessage());
+        }
+        return g;
     }
 }

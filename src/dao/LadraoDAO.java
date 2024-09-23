@@ -87,10 +87,20 @@ public class LadraoDAO {
     public void atualizarLadrao(Ladrao lVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update pessoa set cabelo = ? where id = ? and planoDeFuga is not null";
+            String sql = "update pessoa set nome = ?,"
+                    + "olho = ?,"
+                    + "cabelo = ?,"
+                    + "pele = ?,"
+                    + "planoDeFuga = ?,"
+                    + "pontosDeVida = ?"
+                    + " where id = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, lVO.getCabelo());
-            pst.setInt(2, lVO.getId());
+            pst.setString(1, lVO.getNome());
+            pst.setString(2, lVO.getOlho());
+            pst.setString(3, lVO.getCabelo());
+            pst.setString(4, lVO.getPele());
+            pst.setString(5, lVO.getPlanoDeFuga());
+            pst.setInt(6, lVO.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao editar Ladrao.\n" + e.getMessage());
@@ -108,5 +118,29 @@ public class LadraoDAO {
             System.out.println("Erro ao deletar a Ladrao.\n" + e.getMessage());
         }
         return true;
+    }
+
+    public Ladrao getLadraoById(int id) {
+        Ladrao l = new Ladrao();
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "select * from pessoa " + "where id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                l.setId(rs.getInt("id"));
+                l.setNome(rs.getString("Nome"));
+                l.setCabelo(rs.getString("Cabelo"));
+                l.setOlho(rs.getString("Olho"));
+                l.setPele(rs.getString("Pele"));
+                l.setSexo(rs.getBoolean("Sexo"));
+                l.setPlanoDeFuga(rs.getString("planoDeFuga"));
+                l.setPontosDeVida(rs.getInt("pontosDeVida"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar Ladrao.\n" + e.getMessage());
+        }
+        return l;
     }
 }

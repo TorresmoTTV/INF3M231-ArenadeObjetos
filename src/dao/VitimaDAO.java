@@ -84,10 +84,18 @@ public class VitimaDAO {
     public void atualizarVitima(Pessoa vVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update pessoa set cabelo = ? where id = ?";
+            String sql = "update pessoa set nome = ?,"
+                    + "olho = ?,"
+                    + "cabelo = ?,"
+                    + "pele = ?,"
+                    + "pontosDeVida = ?"
+                    + " where id = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, vVO.getCabelo());
-            pst.setInt(2, vVO.getId());
+            pst.setString(1, vVO.getNome());
+            pst.setString(2, vVO.getOlho());
+            pst.setString(3, vVO.getCabelo());
+            pst.setString(4, vVO.getPele());
+            pst.setInt(5, vVO.getId());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao editar vitima.\n" + e.getMessage());
@@ -105,5 +113,28 @@ public class VitimaDAO {
             System.out.println("Erro ao deletar a vitima.\n" + e.getMessage());
         }
         return true;
+    }
+
+    public Pessoa getVitimaById(int id) {
+        Pessoa v = new Pessoa();
+        try {
+            Connection con = Conexao.getConexao();
+            String sql = "select * from pessoa " + "where id = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                v.setId(rs.getInt("id"));
+                v.setNome(rs.getString("Nome"));
+                v.setCabelo(rs.getString("Cabelo"));
+                v.setOlho(rs.getString("Olho"));
+                v.setPele(rs.getString("Pele"));
+                v.setSexo(rs.getBoolean("Sexo"));
+                v.setPontosDeVida(rs.getInt("pontosDeVida"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao buscar vitima.\n" + e.getMessage());
+        }
+        return v;
     }
 }

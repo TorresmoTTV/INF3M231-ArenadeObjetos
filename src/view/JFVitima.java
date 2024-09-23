@@ -17,6 +17,8 @@ import servicos.VitimaServicos;
  */
 public class JFVitima extends javax.swing.JFrame {
 
+    int idEdit;
+
     /**
      * Creates new form Vitima
      */
@@ -57,6 +59,17 @@ public class JFVitima extends javax.swing.JFrame {
         jtfPeleVitima.setText("");
         bgSexoVitima.clearSelection();
         jtfNomeVitima.requestFocus();
+    }
+
+    private void jbDefault() {
+        jbSalvarVitima.setText("Salvar");
+        jLSexoVitima.setVisible(true);
+        jrbFemininoVitima.setVisible(true);
+        jrbMasculinoVitima.setVisible(true);
+        jbLimparVitima.setEnabled(true);
+        jbDeletarVitima.setText("Deletar");
+        jbEditarVitima.setVisible(false);
+        jbDeletarVitima.setVisible(false);
     }
 
     private boolean validaInputs() {
@@ -108,7 +121,7 @@ public class JFVitima extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfPeleVitima = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLSexoVitima = new javax.swing.JLabel();
         jrbFemininoVitima = new javax.swing.JRadioButton();
         jrbMasculinoVitima = new javax.swing.JRadioButton();
         jbSalvarVitima = new javax.swing.JButton();
@@ -165,8 +178,8 @@ public class JFVitima extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel5.setText("Pele:");
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel6.setText("Sexo:");
+        jLSexoVitima.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLSexoVitima.setText("Sexo:");
 
         bgSexoVitima.add(jrbFemininoVitima);
         jrbFemininoVitima.setText("Feminino");
@@ -283,7 +296,7 @@ public class JFVitima extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
+                                        .addComponent(jLSexoVitima)
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jrbFemininoVitima)
@@ -321,7 +334,7 @@ public class JFVitima extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jtfPeleVitima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)
-                        .addComponent(jLabel6))
+                        .addComponent(jLSexoVitima))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jrbFemininoVitima)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,44 +389,87 @@ public class JFVitima extends javax.swing.JFrame {
 
     private void jbSalvarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarVitimaActionPerformed
         // TODO add your handling code here:
-        if (validaInputs()) {
-            Pessoa v = new Pessoa();
-            v.setNome(jtfNomeVitima.getText().toUpperCase());
-            v.setCabelo(jtfCabeloVitima.getText().toUpperCase());
-            v.setOlho(jtfOlhoVitima.getText().toUpperCase());
-            v.setPele(jtfPeleVitima.getText().toUpperCase());
-            if (jrbFemininoVitima.isSelected() || jrbMasculinoVitima.isSelected()) {
-                v.setSexo(!jrbFemininoVitima.isSelected());
+        if (jbSalvarVitima.getText().equals("Salvar")) {
+            //salvar
+            if (validaInputs()) {
+                Pessoa v = new Pessoa();
+                v.setNome(jtfNomeVitima.getText().toUpperCase());
+                v.setCabelo(jtfCabeloVitima.getText().toUpperCase());
+                v.setOlho(jtfOlhoVitima.getText().toUpperCase());
+                v.setPele(jtfPeleVitima.getText().toUpperCase());
+                if (jrbFemininoVitima.isSelected() || jrbMasculinoVitima.isSelected()) {
+                    v.setSexo(!jrbFemininoVitima.isSelected());
+                }
+                VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
+                vitimaS.cadastrarVitima(v);
+                addRowToTable();
+                limpaCampos();
             }
+        } else {
+            //update 
+            Pessoa vit = new Pessoa();
+            vit.setId(idEdit);
+            vit.setNome(jtfNomeVitima.getText());
+            vit.setCabelo(jtfCabeloVitima.getText());
+            vit.setOlho(jtfOlhoVitima.getText());
+            vit.setPele(jtfPeleVitima.getText());
             VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
-            vitimaS.cadastrarVitima(v);
+            vitimaS.atualizaVitima(vit);
             addRowToTable();
+            JOptionPane.showMessageDialog(this, "Vitima atualizada com sucesso!");
+            jbDefault();
             limpaCampos();
         }
     }//GEN-LAST:event_jbSalvarVitimaActionPerformed
 
     private void jbDeletarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarVitimaActionPerformed
         // TODO add your handling code here:
-        int linha = jtVitimas.getSelectedRow();
-        int id = (int) jtVitimas.getValueAt(linha, 0);
-        String nome = (String) jtVitimas.getValueAt(linha, 1);
-        Object[] btnMSG = {"Sim", "Não"};
-        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
-        if (resp == 0) {
-            VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
-            vitimaS.deletarVitima(id);
-            addRowToTable();
-            JOptionPane.showMessageDialog(this, "Vitima " + nome + " deletada com sucesso!");
+        if (jbDeletarVitima.getText().equals("Deletar")) {
+            int linha = jtVitimas.getSelectedRow();
+            int id = (int) jtVitimas.getValueAt(linha, 0);
+            String nome = (String) jtVitimas.getValueAt(linha, 1);
+            Object[] btnMSG = {"Sim", "Não"};
+            int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
+            if (resp == 0) {
+                VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
+                vitimaS.deletarVitima(id);
+                addRowToTable();
+                JOptionPane.showMessageDialog(this, "Vitima " + nome + " deletada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+            }
+            jbEditarVitima.setVisible(false);
+            jbDeletarVitima.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Edição cancelada com sucesso!");
+            jbDefault();
+            limpaCampos();
         }
-        jbEditarVitima.setVisible(false);
-        jbDeletarVitima.setVisible(false);
     }//GEN-LAST:event_jbDeletarVitimaActionPerformed
 
     private void jbEditarVitimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarVitimaActionPerformed
         // TODO add your handling code here:
+        jbLimparVitima.setEnabled(false);
+        jbSalvarVitima.setText("Atualizar");
+        jrbFemininoVitima.setVisible(false);
+        jrbMasculinoVitima.setVisible(false);
+        jLSexoVitima.setVisible(false);
+        jbDeletarVitima.setText("Cancelar");
+
+        // buscar Vitima e carregar nos campos
+        int linha = jtVitimas.getSelectedRow();
+        idEdit = (int) jtVitimas.getValueAt(linha, 0);
+        VitimaServicos vitimaS = ServicosFactory.getVitimaServicos();
+        Pessoa vitima = vitimaS.getVitimaById(idEdit);
+        // carrega na tela
+        jtfNomeVitima.setText(vitima.getNome());
+        jtfCabeloVitima.setText(vitima.getCabelo());
+        jtfOlhoVitima.setText(vitima.getOlho());
+        jtfPeleVitima.setText(vitima.getPele());
+
+
     }//GEN-LAST:event_jbEditarVitimaActionPerformed
 
     private void jtVitimasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVitimasMouseClicked
@@ -460,12 +516,12 @@ public class JFVitima extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgSexoVitima;
+    private javax.swing.JLabel jLSexoVitima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;

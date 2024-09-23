@@ -22,6 +22,10 @@ public class VitimaServicos {
         return vDao.getVitimaByNome(Nome);
     }
 
+    public Pessoa getVitimaById(int id) {
+        return vDao.getVitimaById(id);
+    }
+
     public void atualizaVitima(Pessoa vVO) {
         vDao.atualizarVitima(vVO);
     }

@@ -22,11 +22,15 @@ public class LadraoServicos {
         return lDao.getLadraoByNome(Nome);
     }
 
-    public void atualizarLadrao (Ladrao lVO) {
+    public Ladrao getLadraoById(int id) {
+        return lDao.getLadraoById(id);
+    }
+
+    public void atualizarLadrao(Ladrao lVO) {
         lDao.atualizarLadrao(lVO);
     }
 
-    public boolean deletarLadrao (int id) {
+    public boolean deletarLadrao(int id) {
         return lDao.deletarLadrao(id);
     }
 }

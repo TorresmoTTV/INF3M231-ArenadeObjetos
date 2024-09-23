@@ -22,6 +22,10 @@ public class GuerreiroServicos {
         return gDao.getGuerreiroByNome(Nome);
     }
 
+    public Guerreiro getGuerreiroById(int id) {
+        return gDao.getGuerreiroById(id);
+    }
+
     public void atualizaGuerreiro(Guerreiro gVO) {
         gDao.atualizarGuerreiro(gVO);
     }

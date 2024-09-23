@@ -17,6 +17,8 @@ import servicos.LadraoServicos;
  */
 public class JFLadrao extends javax.swing.JFrame {
 
+    int idEdit;
+
     /**
      * Creates new form Ladrao
      */
@@ -48,6 +50,17 @@ public class JFLadrao extends javax.swing.JFrame {
             rowData[7] = ladrao.getPontosDeVida();
             model.addRow(rowData);
         }
+    }
+
+    private void jbDefault() {
+        jbSalvarLadrao.setText("Salvar");
+        jLSexoLadrao.setVisible(true);
+        jrbFemininoLadrao.setVisible(true);
+        jrbMasculinoLadrao.setVisible(true);
+        jbLimparLadrao.setEnabled(true);
+        jbDeletarLadrao.setText("Deletar");
+        jbEditarLadrao.setVisible(false);
+        jbDeletarLadrao.setVisible(false);
     }
 
     private void limpaCampos() {
@@ -109,7 +122,7 @@ public class JFLadrao extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfPeleLadrao = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLSexoLadrao = new javax.swing.JLabel();
         jrbFemininoLadrao = new javax.swing.JRadioButton();
         jrbMasculinoLadrao = new javax.swing.JRadioButton();
         jbSalvarLadrao = new javax.swing.JButton();
@@ -168,8 +181,8 @@ public class JFLadrao extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel5.setText("Pele:");
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel6.setText("Sexo:");
+        jLSexoLadrao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLSexoLadrao.setText("Sexo:");
 
         bgSexoLadrao.add(jrbFemininoLadrao);
         jrbFemininoLadrao.setText("Feminino");
@@ -304,7 +317,7 @@ public class JFLadrao extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jbDeletarLadrao)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
+                                        .addComponent(jLSexoLadrao)
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jrbFemininoLadrao)
@@ -334,7 +347,7 @@ public class JFLadrao extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfPeleLadrao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLSexoLadrao))
                         .addGap(4, 4, 4)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jtfPlanodeFuga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,45 +410,87 @@ public class JFLadrao extends javax.swing.JFrame {
 
     private void jbSalvarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarLadraoActionPerformed
         // TODO add your handling code here:
-        if (validaInputs()) {
-            Ladrao l = new Ladrao();
-            l.setNome(jtfNomeLadrao.getText().toUpperCase());
-            l.setCabelo(jtfCabeloLadrao.getText().toUpperCase());
-            l.setOlho(jtfOlhoLadrao.getText().toUpperCase());
-            l.setPele(jtfPeleLadrao.getText().toUpperCase());
-            l.setPlanoDeFuga(jtfPlanodeFuga.getText().toUpperCase());
-            if (jrbFemininoLadrao.isSelected() || jrbMasculinoLadrao.isSelected()) {
-                l.setSexo(!jrbFemininoLadrao.isSelected());
+        if (jbSalvarLadrao.getText().equals("Salvar")) {
+            if (validaInputs()) {
+                Ladrao l = new Ladrao();
+                l.setNome(jtfNomeLadrao.getText().toUpperCase());
+                l.setCabelo(jtfCabeloLadrao.getText().toUpperCase());
+                l.setOlho(jtfOlhoLadrao.getText().toUpperCase());
+                l.setPele(jtfPeleLadrao.getText().toUpperCase());
+                l.setPlanoDeFuga(jtfPlanodeFuga.getText().toUpperCase());
+                if (jrbFemininoLadrao.isSelected() || jrbMasculinoLadrao.isSelected()) {
+                    l.setSexo(!jrbFemininoLadrao.isSelected());
+                }
+                LadraoServicos ladraoS = ServicosFactory.getLadraoServicos();
+                ladraoS.cadastrarLadrao(l);
+                addRowToTable();
+                limpaCampos();
             }
+        } else {
+            Ladrao l = new Ladrao();
+            l.setId(idEdit);
+            l.setNome(jtfNomeLadrao.getText());
+            l.setCabelo(jtfCabeloLadrao.getText());
+            l.setOlho(jtfOlhoLadrao.getText());
+            l.setPele(jtfPeleLadrao.getText());
             LadraoServicos ladraoS = ServicosFactory.getLadraoServicos();
-            ladraoS.cadastrarLadrao(l);
+            ladraoS.atualizarLadrao(l);
             addRowToTable();
+            JOptionPane.showMessageDialog(this, "Ladrao atualizada com sucesso!");
+            jbDefault();
             limpaCampos();
         }
     }//GEN-LAST:event_jbSalvarLadraoActionPerformed
 
     private void jbDeletarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarLadraoActionPerformed
         // TODO add your handling code here:
-        int linha = jtLadrao.getSelectedRow();
-        int id = (int) jtLadrao.getValueAt(linha, 0);
-        String nome = (String) jtLadrao.getValueAt(linha, 1);
-        Object[] btnMSG = {"Sim", "Não"};
-        int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
-        if (resp == 0) {
-            LadraoServicos LadraoS = ServicosFactory.getLadraoServicos();
-            LadraoS.deletarLadrao(id);
-            addRowToTable();
-            JOptionPane.showMessageDialog(this, "Ladrao " + nome + " deletada com sucesso!");
+        if (jbDeletarLadrao.getText().equals("Deletar")) {
+            int linha = jtLadrao.getSelectedRow();
+            int id = (int) jtLadrao.getValueAt(linha, 0);
+            String nome = (String) jtLadrao.getValueAt(linha, 1);
+            Object[] btnMSG = {"Sim", "Não"};
+            int resp = JOptionPane.showOptionDialog(this, "Deseja realmente deletar " + nome, ".: Deletar :.",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, btnMSG, btnMSG[0]);
+            if (resp == 0) {
+                LadraoServicos LadraoS = ServicosFactory.getLadraoServicos();
+                LadraoS.deletarLadrao(id);
+                addRowToTable();
+                JOptionPane.showMessageDialog(this, "Ladrao " + nome + " deletada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+            }
+            jbEditarLadrao.setVisible(false);
+            jbDeletarLadrao.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Ok, delete cancelado com sucesso!");
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Edição cancelada com sucesso!");
+            jbDefault();
+            limpaCampos();
         }
-        jbEditarLadrao.setVisible(false);
-        jbDeletarLadrao.setVisible(false);
+
     }//GEN-LAST:event_jbDeletarLadraoActionPerformed
 
     private void jbEditarLadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarLadraoActionPerformed
         // TODO add your handling code here:
+        jbLimparLadrao.setEnabled(false);
+        jbSalvarLadrao.setText("Atualizar");
+        jrbFemininoLadrao.setVisible(false);
+        jrbMasculinoLadrao.setVisible(false);
+        jLSexoLadrao.setVisible(false);
+        jbDeletarLadrao.setText("Cancelar");
+
+        // buscar Ladrao e carregar nos campos
+        int linha = jtLadrao.getSelectedRow();
+        idEdit = (int) jtLadrao.getValueAt(linha, 0);
+        LadraoServicos ladraoS = ServicosFactory.getLadraoServicos();
+        Ladrao ladrao = ladraoS.getLadraoById(idEdit);
+        // carrega na tela
+        jtfNomeLadrao.setText(ladrao.getNome());
+        jtfCabeloLadrao.setText(ladrao.getCabelo());
+        jtfOlhoLadrao.setText(ladrao.getOlho());
+        jtfPeleLadrao.setText(ladrao.getPele());
+        jtfPlanodeFuga.setText(ladrao.getPlanoDeFuga());
+
     }//GEN-LAST:event_jbEditarLadraoActionPerformed
 
     private void jtLadraoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtLadraoMouseClicked
@@ -484,12 +539,12 @@ public class JFLadrao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgSexoLadrao;
+    private javax.swing.JLabel jLSexoLadrao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
