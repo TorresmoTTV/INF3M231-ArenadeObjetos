@@ -10,6 +10,7 @@ import servicos.GuerreiroServicos;
 import servicos.LadraoServicos;
 import servicos.ServicosFactory;
 import servicos.VitimaServicos;
+import view.Principal;
 
 public class ArenaDeObjetos {
     // escopo Global
@@ -34,11 +35,14 @@ public class ArenaDeObjetos {
     }
 
     public static void main(String[] args) {
-        System.out.println(".:Arena de Objetos:.");
+        /*System.out.println(".:Arena de Objetos:.");
         do {
             menuP();
             subMenuP(opMP);
-        } while (opMP != 0);
+        } while (opMP != 0);*/
+        Principal janelaP = new Principal();
+        janelaP.setVisible(true);    
+        
     }
 
     public static void menuP() {// menu principal
